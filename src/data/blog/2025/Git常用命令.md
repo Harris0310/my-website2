@@ -9,6 +9,13 @@ tags:
   - 开发工具
 ---
 ## 我自己的丝滑提交小连招
+普通推送
+```markdown
+git add .  
+git commit -m "update"  
+git push origin main
+```
+强制推送
 ```markdown
 git add .  
 git commit -m "update"  
