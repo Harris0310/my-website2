@@ -3,35 +3,33 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+## 在“解决问题”中成长
 
-![Astro Paper](public/astropaper-og.jpg)
+你好，我是 **C Y**，一个热衷于**拆解问题、沉淀解决方案**的践行者。这里既是我的个人站，也是一座随时可翻阅的“**问题解决工具箱**”。
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+## 我的成长路径
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+深耕 **互联网产品运营 + 大数据分析** 多年，从一线实操到策略梳理，我经历了无数次“遇到问题 → 分析问题 → 解决问题”的闭环。  
+我把这些经历全部记录进“**问题日志**”：
 
-## Features
+- 小：一次 Excel 函数的高效用法  
+- 中：一个项目流程的优化方案  
+- 大：一次跨部门沟通的协调技巧  
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+当积累足够，我会抽离共性，整理成**结构化方案**——这就是本站内容的源头。
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+## 关于本站：你的“问题解决工具箱”
 
-and so much more.
+本站每篇文章都遵循**“问题场景 + 分析思路 + 具体方案 + 拓展思考”**四段式，让你既能**直接套用**，也能**理解底层逻辑**，真正做到“授人以鱼，更授人以渔”。
 
-## Show your support
+> 🎯 目前聚焦 **大数据分析**，后续会根据大家需求不断拓展领域。
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+## 期待与你交流
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
+解决问题的路上从不缺独行侠，但交流能让思路碰撞出更多火花。  
+如果你有**不同想法**、**更好方案**，或想让我**拆解某个问题**，欢迎邮件至：
 
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
+📮 [acy2100@outlook.com](mailto:a32985@outlook.com)
 
-Kyay zuu! 🙏🏼
+感谢你来到我的个人站，愿这里的内容帮你**少走弯路**，**更高效地解决问题**。  
+让我们一起在“拆解问题”中成长，在“分享价值”中同行！
