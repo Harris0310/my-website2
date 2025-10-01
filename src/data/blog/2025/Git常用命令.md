@@ -12,13 +12,13 @@ tags:
 普通推送
 ```markdown
 git add .  
-git commit -m "update"  
+git commit -m "更新"  
 git push origin main
 ```
 强制推送
 ```markdown
 git add .  
-git commit -m "update"  
+git commit -m "更新"  
 git push -f origin main
 ```
 ## Git 工作流示意图
