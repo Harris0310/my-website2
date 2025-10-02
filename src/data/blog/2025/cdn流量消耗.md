@@ -1,11 +1,11 @@
 ---
 author: C Y
-pubDatetime: 2025-10-02T11:30:00Z
+pubDatetime: 2025-10-01T11:30:00Z
 title: 壁纸
 description: "壁纸"
 tags:
   - 壁纸
   - cdn消耗
 ---
-![8K](../../../src/assets/images/8K.jpg "8K壁纸")
-![云霄](../../../src/assets/images/yunxiao.jpg "云霄壁纸")
+![8K](../../../assets/images/8K.jpg)
+![云霄](../../../assets/images/yunxiao.jpg)
