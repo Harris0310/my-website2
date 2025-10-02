@@ -7,5 +7,5 @@ tags:
   - 壁纸
   - cdn消耗
 ---
-![8K][/src/assets/images/8K.jpg]("8K壁纸")
-![云霄][/src/assets/images/yunxiao.jpg]("云霄壁纸")
+![8K](../../../src/assets/images/8K.jpg "8K壁纸")
+![云霄](../../../src/assets/images/yunxiao.jpg "云霄壁纸")
