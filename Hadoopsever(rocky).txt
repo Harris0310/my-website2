@@ -1,0 +1,152 @@
+# 1. 设置主机名
+sudo hostnamectl set-hostname master
+
+# 2. 确认静态 IP (确保是 131)
+sudo nmcli con mod ens33 ipv4.addresses 192.168.32.131/24
+sudo nmcli con mod ens33 ipv4.gateway 192.168.32.2
+sudo nmcli con mod ens33 ipv4.dns "223.5.5.5,114.114.114.114"
+sudo nmcli con mod ens33 ipv4.method manual
+sudo nmcli con up ens33
+
+# 3. 写入映射表 (这一步最关键，所有节点都要有)
+cat <<EOF | sudo tee -a /etc/hosts
+192.168.32.131 master
+192.168.32.132 node1
+192.168.32.133 node2
+EOF
+
+# 关闭防火墙
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
+
+# 关闭 SELinux (临时生效 + 永久改配置)
+sudo setenforce 0
+sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+
+# 安装 OpenJDK 
+sudo dnf install -y java-11-openjdk-devel
+
+# 验证安装 
+java -version
+
+sudo mkdir -p /opt/module
+sudo chown cy:cy /opt/module
+cd /opt/module
+
+wget https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
+
+# 解压并重命名 
+tar -xzf hadoop-3.3.6.tar.gz
+mv hadoop-3.3.6 hadoop
+
+# 1. 生成密钥 (一路回车) [cite: 3]
+ssh-keygen -t rsa
+
+# 2. 发送给三台机器 (包括你自己) [cite: 3]
+ssh-copy-id master
+ssh-copy-id node1
+ssh-copy-id node2
+
+vim ~/.bashrc
+# Hadoop Environment Variables 
+export HADOOP_HOME=/opt/module/hadoop 
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin 
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop 
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+
+source ~/.bashrc
+
+/opt/module/hadoop/etc/hadoop/
+core-site.xml:
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://master:9000</value> 
+    </property>
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/opt/module/hadoop/data/tmp</value> 
+    </property>
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value>cy</value>
+    </property>
+</configuration>
+
+hdfs-site.xml:
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value> 
+    </property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file://${hadoop.tmp.dir}/dfs/name</value> [cite: 5]
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file://${hadoop.tmp.dir}/dfs/data</value> [cite: 5]
+    </property>
+</configuration>
+
+yarn-site.xml:
+<configuration>
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>master</value> 
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value> 
+    </property>
+    <property>
+        <name>yarn.nodemanager.env-whitelist</name>
+        <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_HOME,PATH,LANG,TZ</value> 
+    </property>
+</configuration>
+
+mapred-site.xml:
+<configuration>
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+    <property>
+        <name>mapreduce.application.classpath</name>
+        <value>$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*</value>
+    </property>
+</configuration>
+
+workers:
+node1
+node2
+
+hadoop-env.sh：
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+
+# 在 node1 和 node2 上执行
+sudo rm -rf /opt/module/*
+sudo mkdir -p /opt/module/hadoop
+sudo chown -R cy:cy /opt/module
+
+for host in node1 node2; do
+    rsync -avz /opt/module/hadoop/ cy@$host:/opt/module/
+done
+
+# 注意：hadoop 后面没有斜杠！
+for host in node1 node2; do
+    echo "正在精确同步到 $host..."
+    rsync -avz /opt/module/hadoop cy@$host:/opt/module/
+done
+
+hdfs namenode -format
+start-dfs.sh
+start-yarn.sh
+stop-yarn.sh
+stop-dfs.sh
+
+rm -rf /opt/module/hadoop/data/tmp/*
+
+hdfs dfsadmin -report
+http://192.168.32.131:9870
+http://192.168.32.131:8088
