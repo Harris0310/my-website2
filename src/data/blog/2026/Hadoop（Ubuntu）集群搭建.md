@@ -1,6 +1,6 @@
 ---
 author: C Y
-pubDatetime: 2026-01-31T14:00:00Z
+pubDatetime: 2026-01-31T12:00:00Z
 title: Hadoop 集群搭建(Ubuntu)
 description: "Ubuntu 环境下 Hadoop 分布式集群完整搭建教程"
 tags:
