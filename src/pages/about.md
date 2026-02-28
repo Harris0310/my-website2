@@ -27,6 +27,6 @@ title: "About"
 
 如果有想交流的，可以邮件联系：
 
-📮 [acy2100@outlook.com](mailto:acy2100@outlook.com)
+📮 [bigdata.cy@outlook.com](mailto:bigdata.cy@outlook.com)
 
 感谢来访，祝好！

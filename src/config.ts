@@ -4,7 +4,7 @@ export const SITE = {
   profile: "https://github.com/Harris0310",
   desc: "个人技术博客与作品",
   title: "C Y的博客",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
